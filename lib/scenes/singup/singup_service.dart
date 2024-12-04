@@ -33,7 +33,7 @@ class SignUpService {
   static Future<bool> registerUser(
       String name, String email, String password) async {
     const String apiUrl =
-        'https://todolist-2ct7.onrender.com/users/'; // URL da API
+        'http://127.0.0.1:8080/users/'; // URL da API
 
     try {
       final response = await http.post(
@@ -43,7 +43,7 @@ class SignUpService {
         },
         body: json.encode({
           'name': name,
-          'username': email,
+          'email': email,
           'password': password,
         }),
       );

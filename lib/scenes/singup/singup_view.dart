@@ -93,9 +93,22 @@ class _SignUpViewState extends State<SignUpView> {
 
             if (isSuccess) {
               SignUpRouter.goToLogin(context);
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(
+                    content: Text('Cadastro realizado com sucesso!')),
+              );
+            } else {
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(
+                    content:
+                        Text('Erro ao realizar cadastro. Tente novamente.')),
+              );
             }
           } catch (e) {
             print('Erro ao registrar: $e');
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text('Erro: $e')),
+            );
           }
         },
       ),

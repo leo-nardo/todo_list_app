@@ -2,7 +2,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 class TasksService {
-  final String baseUrl = "https://todolist-2ct7.onrender.com";
+  final String baseUrl = "http://127.0.0.1";
   String? _authToken;
 
   void setAuthToken(String token) {

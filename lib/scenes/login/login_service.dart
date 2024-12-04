@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 class LoginService {
-  final String baseUrl = "https://todolist-2ct7.onrender.com";
+  final String baseUrl = 'http://127.0.0.1:8080';
 
   String? validateEmail(String? value) {
     if (value == null || value.isEmpty) {
@@ -21,7 +21,7 @@ class LoginService {
   }
 
   Future<Map<String, dynamic>> login(String email, String password) async {
-    final url = Uri.parse('$baseUrl/users/');
+    final url = Uri.parse('$baseUrl/login/');
     final response = await http.post(
       url,
       headers: {'Content-Type': 'application/json'},
