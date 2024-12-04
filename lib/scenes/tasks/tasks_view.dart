@@ -19,6 +19,75 @@ class _TasksViewState extends State<TasksView> {
     _tasks = widget.tasksService.fetchTasks();
   }
 
+  void _showCreateTaskDialog(BuildContext context) {
+    final _titleController = TextEditingController();
+    final _descriptionController = TextEditingController();
+    final _startDateController = TextEditingController();
+    final _endDateController = TextEditingController();
+
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text('Criar Tarefa'),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              TextField(
+                controller: _titleController,
+                decoration: InputDecoration(labelText: 'Título'),
+              ),
+              TextField(
+                controller: _descriptionController,
+                decoration: InputDecoration(labelText: 'Descrição'),
+              ),
+              TextField(
+                controller: _startDateController,
+                decoration:
+                    InputDecoration(labelText: 'Data de Início (YYYY-MM-DD)'),
+              ),
+              TextField(
+                controller: _endDateController,
+                decoration:
+                    InputDecoration(labelText: 'Data de Término (YYYY-MM-DD)'),
+              ),
+            ],
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(),
+              child: Text('Cancelar'),
+            ),
+            ElevatedButton(
+              onPressed: () async {
+                final task = {
+                  'title': _titleController.text,
+                  'description': _descriptionController.text,
+                  'startAt': _startDateController.text,
+                  'endAt': _endDateController.text,
+                };
+
+                try {
+                  await widget.tasksService.addTask(task);
+                  setState(() {
+                    _tasks = widget.tasksService.fetchTasks();
+                  });
+                  Navigator.of(context).pop();
+                } catch (e) {
+                  // Exibir mensagem de erro
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text('Erro ao criar tarefa: $e')),
+                  );
+                }
+              },
+              child: Text('Criar'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -54,9 +123,7 @@ class _TasksViewState extends State<TasksView> {
         },
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          // Navegar para uma tela de criação de tarefas
-        },
+        onPressed: () => _showCreateTaskDialog(context),
         child: Icon(Icons.add),
       ),
     );

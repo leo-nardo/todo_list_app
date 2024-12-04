@@ -32,7 +32,7 @@ class TasksService {
     }
 
     final response = await http.post(
-      Uri.parse('$baseUrl/tasks'),
+      Uri.parse('$baseUrl/tasks/'),
       headers: {
         'Authorization': 'Bearer $_authToken',
         'Content-Type': 'application/json',
@@ -40,8 +40,8 @@ class TasksService {
       body: json.encode(task),
     );
 
-    if (response.statusCode != 201) {
-      throw Exception('Erro ao adicionar tarefa');
+    if (response.statusCode != 200) {
+      throw Exception('Erro ao adicionar tarefa: ${response.body}');
     }
   }
 }

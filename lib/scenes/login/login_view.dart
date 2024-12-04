@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:todolist_app/scenes/singup/singup_view.dart';
 
+import '../../core/session_manager.dart';
 import '../../design_system/components/buttons/action_buttom/action_button.dart';
 import '../../design_system/components/buttons/action_buttom/action_button_view_model.dart';
 import '../../design_system/components/input_field/input_text.dart';
@@ -108,10 +109,7 @@ class _LoginViewState extends State<LoginView> {
         text: 'Login',
         onPressed: () async {
           try {
-            // Cria uma instância do LoginService
-            final loginService = LoginService();
-
-            // Faz login e obtém os dados do usuário
+            // Realiza o login e obtém os dados do usuário
             final response = await loginService.login(
               emailController.text,
               passwordController.text,
@@ -120,8 +118,11 @@ class _LoginViewState extends State<LoginView> {
             // Obtém o token de autenticação
             final authToken = response['token'];
 
+            // Armazena o token usando o SessionManager
+            SessionManager.setAuthToken(authToken);
+
             // Navega para a tela de tarefas usando o LoginRouter
-            LoginRouter.goToTasks(context, authToken);
+            LoginRouter.goToTasks(context);
           } catch (e) {
             // Exibe mensagem de erro
             ScaffoldMessenger.of(context).showSnackBar(
