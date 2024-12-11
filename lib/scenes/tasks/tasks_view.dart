@@ -54,7 +54,7 @@ class _TodoListScreenState extends State<TodoListScreen> {
       badge: BadgeViewModel(style: BadgeStyle.success, text: 'baixa',
           icon: Icon(
             Icons.error,
-            color: Color(0x00CD51),
+            color: Color.fromARGB(255, 0, 205, 82),
           )),
       isCompleted: true,
     ),
@@ -64,7 +64,7 @@ class _TodoListScreenState extends State<TodoListScreen> {
         badge: BadgeViewModel(style: BadgeStyle.warning, text: 'Média',
           icon: Icon(
             Icons.error,
-            color: Colors.yellow,
+            color: Color.fromARGB(255, 254, 163, 26),
           )),
         isCompleted: false,
     ),

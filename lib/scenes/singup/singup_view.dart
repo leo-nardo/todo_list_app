@@ -18,27 +18,42 @@ class _SignUpViewState extends State<SignUpView> {
   final TextEditingController nameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+  final TextEditingController confirmPasswordController = TextEditingController();
   final SignUpService signUpService = SignUpService();
+  final _formKey = GlobalKey<FormState>();
 
-  @override
+   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Padding(
-        padding: const EdgeInsets.all(32.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            _buildNameField(),
-            const SizedBox(height: 16),
-            _buildEmailField(),
-            const SizedBox(height: 16),
-            _buildPasswordField(),
-            const SizedBox(height: 32),
-            _buildSignUpButton(context),
-            const SizedBox(height: 24),
-            _buildLoginRedirect(context),
-          ],
+        padding: const EdgeInsets.all(16.0),
+        child: Form(
+          key: _formKey, // Adiciona o Form
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(bottom: 32.0),
+                child: const SizedBox(
+                    child: Icon(Icons.task_alt,
+                        size: 64, color: Colors.blue)),
+              ), 
+
+
+              _buildNameField(),
+              const SizedBox(height: 16),
+              _buildEmailField(),
+              const SizedBox(height: 16),
+              _buildPasswordField(),
+              const SizedBox(height: 16),
+              _buildConfirmPasswordField(), 
+              const SizedBox(height: 32),
+              _buildSignUpButton(context),
+              const SizedBox(height: 24),
+              _buildLoginButton(context), 
+            ],
+          ),
         ),
       ),
     );
@@ -48,7 +63,7 @@ class _SignUpViewState extends State<SignUpView> {
     return StyledInputField.instantiate(
       viewModel: InputTextViewModel(
         controller: nameController,
-        placeholder: 'Name',
+        placeholder: 'Nome',
         password: false,
         validator: signUpService.validateName,
       ),
@@ -70,9 +85,25 @@ class _SignUpViewState extends State<SignUpView> {
     return StyledInputField.instantiate(
       viewModel: InputTextViewModel(
         controller: passwordController,
-        placeholder: 'Password',
+        placeholder: 'Senha',
         password: true,
         validator: signUpService.validatePassword,
+      ),
+    );
+  }
+
+  Widget _buildConfirmPasswordField() {
+    return StyledInputField.instantiate(
+      viewModel: InputTextViewModel(
+        controller: confirmPasswordController,
+        placeholder: 'Confirme a Senha',
+        password: true,
+        validator: (value) {
+          if (value != passwordController.text) {
+            return 'As senhas não coincidem';
+          }
+          return null;
+        },
       ),
     );
   }
@@ -82,47 +113,52 @@ class _SignUpViewState extends State<SignUpView> {
       viewModel: ActionButtonViewModel(
         style: ActionButtonStyle.primary,
         size: ActionButtonSize.medium,
-        text: 'Sign Up',
+        text: 'Cadastre-se',
         onPressed: () async {
-          try {
-            bool isSuccess = await SignUpService.registerUser(
-              nameController.text,
-              emailController.text,
-              passwordController.text,
-            );
-
-            if (isSuccess) {
-              SignUpRouter.goToLogin(context);
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(
-                    content: Text('Cadastro realizado com sucesso!')),
+          if (_formKey.currentState!.validate()) {
+            // Validação do formulário
+            try {
+              bool isSuccess = await SignUpService.registerUser(
+                nameController.text,
+                emailController.text,
+                passwordController.text,
               );
-            } else {
+
+              if (isSuccess) {
+                Navigator.pushReplacementNamed(
+                    context, '/login'); // substitui a tela
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                      content: Text('Cadastro realizado com sucesso!')),
+                );
+              } else {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                      content:
+                          Text('Erro ao realizar cadastro. Tente novamente.')),
+                );
+              }
+            } catch (e) {
+              print('Erro ao registrar: $e');
               ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(
-                    content:
-                        Text('Erro ao realizar cadastro. Tente novamente.')),
+                SnackBar(content: Text('Erro: $e')),
               );
             }
-          } catch (e) {
-            print('Erro ao registrar: $e');
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text('Erro: $e')),
-            );
           }
         },
       ),
     );
   }
 
-  Widget _buildLoginRedirect(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        SignUpRouter.goToLogin(context);
-      },
-      child: const Text(
-        'Already have an account? Login',
-        style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+  Widget _buildLoginButton(BuildContext context) {
+    return ActionButton.instantiate(
+      viewModel: ActionButtonViewModel(
+        size: ActionButtonSize.small,
+        style: ActionButtonStyle.text,
+        text: 'Login',
+        onPressed: () {
+          SignUpRouter.goToLogin(context);
+        },
       ),
     );
   }
