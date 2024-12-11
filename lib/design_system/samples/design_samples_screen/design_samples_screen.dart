@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../components/buttons/button/action_button.dart';
+import '../../components/buttons/button/action_button_view_model.dart';
 import '../action_button_sample_screen/action_button_sample_screen.dart';
 import '../badge_sample_screen/badge_sample_screen.dart';
 import '../bottom_tab_bar_sample_screen/bottom_tab_bar_sample_screen.dart';
@@ -11,71 +13,66 @@ import '../segmented_sample_screen/segmented_sample_screen.dart';
 import '../tab_component_sample_screen/tab_component_sample_screen.dart';
 
 class DesignSystemSamplesScreen extends StatelessWidget {
-   DesignSystemSamplesScreen({super.key});
+  const DesignSystemSamplesScreen({super.key});
 
-  final List<Map<String, dynamic>> samples = [
-    {
-      'title': 'Action Button',
-      'route': '/actionButton',
-      'screen': ActionButtonPage(),
-    },
-    {
-      'title': 'Badge',
-      'route': '/badge',
-      'screen': const BadgeSampleScreen(),
-    },
-    {
-      'title': 'Bottom Tab Bar',
-      'route': '/bottomTabBar',
-      'screen': const BottomTabBarPage(),
-    },
-    {
-      'title': 'Card Option',
-      'route': '/cardOption',
-      'screen': const CardOptionSampleScreen(),
-    },
-    {
-      'title': 'Custom Checkbox',
-      'route': '/customCheckbox',
-      'screen': const CustomCheckboxSampleScreen(),
-    },
-    {
-      'title': 'Input Field',
-      'route': '/inputField',
-      'screen': InputFieldPage(),
-    },
-    {
-      'title': 'Linked Label',
-      'route': '/linkedLabel',
-      'screen': const LinkedLabelPage(),
-    },
-    {
-      'title': 'Segmented',
-      'route': '/segmented',
-      'screen': const SegmentedSampleScreen(),
-    },
-    {
-      'title': 'Tab Component',
-      'route': '/tabComponent',
-      'screen': const TabPage(),
-    },
-  ];
+  void _navigateToSample(BuildContext context, Widget sampleScreen) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => sampleScreen),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('Design System Samples')),
-      body: ListView.builder(
-        itemCount: samples.length,
-        itemBuilder: (context, index) {
-          final sample = samples[index];
-          return ListTile(
-            title: Text(sample['title']),
-            onTap: () {
-              Navigator.pushNamed(context, sample['route']);
-            },
-          );
-        },
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            _buildSampleButton(
+                context, ActionButtonPage(), 'Action Button'),
+                const SizedBox(height: 16),
+            _buildSampleButton(context, BadgeSampleScreen(), 'Badge'),
+            const SizedBox(height: 16),
+            _buildSampleButton(
+                context, BottomTabBarPage(), 'Bottom Tab Bar'),
+                const SizedBox(height: 16),
+            _buildSampleButton(
+                context, CardOptionSampleScreen(), 'Card Option'),
+                const SizedBox(height: 16),
+            _buildSampleButton(
+                context, CustomCheckboxSampleScreen(), 'Custom Checkbox'),
+                const SizedBox(height: 16),
+            _buildSampleButton(
+                context, InputFieldPage(), 'Input Field'),
+                const SizedBox(height: 16),
+            _buildSampleButton(
+                context, LinkedLabelPage(), 'Linked Label'),
+                const SizedBox(height: 16),
+            _buildSampleButton(context, SegmentedSampleScreen(), 'Segmented'),
+            const SizedBox(height: 16),
+            _buildSampleButton(
+                context, TabPage(), 'Tab Component'),
+                const SizedBox(height: 16),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildSampleButton(
+      BuildContext context, Widget sampleScreen, String title) {
+    return ActionButton.instantiate(
+      viewModel: ActionButtonViewModel(
+        style: ActionButtonStyle.primary,
+        size: ActionButtonSize.small,
+        text: title,
+        onPressed: () => Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => sampleScreen),
+        ),
       ),
     );
   }
