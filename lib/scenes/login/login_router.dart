@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:todolist_app/scenes/tasks/tasks_service.dart';
 import 'package:todolist_app/scenes/tasks/tasks_view.dart';
 import '../singup/singup_view.dart';
 
@@ -8,7 +7,7 @@ class LoginRouter {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => TasksView(tasksService: TasksService()),
+        builder: (context) => const TodoListScreen(),
       ),
     );
   }

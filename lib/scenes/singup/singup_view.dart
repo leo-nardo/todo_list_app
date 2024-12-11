@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../design_system/components/buttons/action_buttom/action_button.dart';
-import '../../design_system/components/buttons/action_buttom/action_button_view_model.dart';
+import '../../design_system/components/buttons/button/action_button.dart';
+import '../../design_system/components/buttons/button/action_button_view_model.dart';
 import '../../design_system/components/input_field/input_text.dart';
 import '../../design_system/components/input_field/input_text_view_model.dart';
 import 'singup_router.dart';
@@ -81,7 +81,7 @@ class _SignUpViewState extends State<SignUpView> {
     return ActionButton.instantiate(
       viewModel: ActionButtonViewModel(
         style: ActionButtonStyle.primary,
-        size: ActionButtonSize.large,
+        size: ActionButtonSize.medium,
         text: 'Sign Up',
         onPressed: () async {
           try {

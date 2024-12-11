@@ -18,3 +18,11 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+  assets:
+    - assets/fonts/Galano.otf
+
+fonts:
+  - family: Galano
+    fonts:
+      - asset: assets/fonts/Galano.otf
+  

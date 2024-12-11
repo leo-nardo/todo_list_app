@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../shared/styles.dart';
 import 'badge_view_model.dart';
 
 class Badge extends StatelessWidget {
@@ -64,12 +65,9 @@ class Badge extends StatelessWidget {
                   height: 24,
                   child: Text(
                     viewModel.text,
-                    style: const TextStyle(
-                      color: Color(0xFF002752),
-                      fontSize: 16,
-                      fontFamily: 'Galano',
-                      fontWeight: FontWeight.w400,
-                    ),
+                    style: AppTextStyle.createTextStyle(
+                        AppTextStyle.bodyMedium, Color(0xFF002752)),
+                    
                   ),
                 ),
               ],
