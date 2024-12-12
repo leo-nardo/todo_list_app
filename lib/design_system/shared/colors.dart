@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 //Light
 
 // Amarelo (Primária)
-const Color lightPrimaryBrandColor = Color(0xff6482FF);
-const Color normalPrimaryBrandColor = Color(0xff274FF5);
-const Color darkPrimaryBrandColor = Color(0xff1A38B2);
+const Color lightPrimaryBrandColor = Color(0xFFE2EEFD);
+const Color normalPrimaryBrandColor = Color(0xFF0071EB);
+const Color darkPrimaryBrandColor = Color(0xFF345676);
 
 // Azul (Secundária)
 const Color lightSecondaryBrandColor = Color(0xffFAE187);

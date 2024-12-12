@@ -27,7 +27,7 @@ class LinkedLabel extends StatelessWidget {
     return RichText(
       text: TextSpan(
         text: viewModel.fullText.substring(0, startIndex),
-        style: button2Semibold,
+        style: AppTextStyle.bodyMedium,
         children: [
           TextSpan(
             text: viewModel.linkedText,
@@ -36,7 +36,8 @@ class LinkedLabel extends StatelessWidget {
           ),
           TextSpan(
             text: viewModel.fullText.substring(endIndex),
-            style: label2Semibold,
+            style: AppTextStyle.createTextStyle(
+                AppTextStyle.linkMedium, Colors.blue),
           ),
         ],
       ),

@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:todolist_app/scenes/singup/singup_view.dart';
 
 import '../../core/session_manager.dart';
-import '../../design_system/components/buttons/action_buttom/action_button.dart';
-import '../../design_system/components/buttons/action_buttom/action_button_view_model.dart';
+import '../../design_system/components/buttons/button/action_button.dart';
+import '../../design_system/components/buttons/button/action_button_view_model.dart';
 import '../../design_system/components/input_field/input_text.dart';
 import '../../design_system/components/input_field/input_text_view_model.dart';
 import '../../design_system/components/linked_label/linked_label.dart';
@@ -78,7 +78,7 @@ class _LoginViewState extends State<LoginView> {
     return StyledInputField.instantiate(
       viewModel: InputTextViewModel(
         controller: passwordController,
-        placeholder: 'Password',
+        placeholder: 'Senha',
         password: true,
         suffixIcon: const Icon(Icons.remove_red_eye),
         validator: loginService.validatePassword,
@@ -92,8 +92,8 @@ class _LoginViewState extends State<LoginView> {
       children: [
         LinkedLabel.instantiate(
           viewModel: LinkedLabelViewModel(
-            fullText: 'Forgot Password',
-            linkedText: 'Forgot Password',
+            fullText: 'Esqueceu a senha?',
+            linkedText: 'Esqueceu a senha?',
             onLinkTap: () {
               print('Esqueceu a senha?');
             },
@@ -107,8 +107,8 @@ class _LoginViewState extends State<LoginView> {
     return ActionButton.instantiate(
       viewModel: ActionButtonViewModel(
         style: ActionButtonStyle.primary,
-        size: ActionButtonSize.large,
-        text: 'Login',
+        size: ActionButtonSize.medium,
+        text: 'Entrar',
         onPressed: () async {
             try {
               final response = await loginService.login(
@@ -132,17 +132,16 @@ class _LoginViewState extends State<LoginView> {
     return Column(
       children: [
         const Text(
-          'Don\'t Have An Account?',
+          'Não tem uma conta?',
           style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
         ),
         const SizedBox(height: 24),
         SizedBox(
-          width: 73,
           child: ActionButton.instantiate(
             viewModel: ActionButtonViewModel(
-              style: ActionButtonStyle.primary,
+              style: ActionButtonStyle.text,
               size: ActionButtonSize.small,
-              text: 'Sign Up',
+              text: 'Cadastre-se',
               onPressed: () {
                 Navigator.push(context,
                     MaterialPageRoute(builder: (context) => const SignUpView()));

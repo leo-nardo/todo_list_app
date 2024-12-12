@@ -48,7 +48,7 @@ class SignUpService {
         }),
       );
 
-      if (response.statusCode == 201) {
+      if (response.statusCode == 200) {
         print('Usuário registrado com sucesso!');
         return true;
       } else {

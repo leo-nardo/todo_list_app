@@ -1,126 +1,164 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import 'colors.dart';
+class AppTextStyle {
 
-const TextStyle heading1Light = TextStyle(
-  fontFamily: 'Inter',
-  fontSize: 93,
-  fontWeight: FontWeight.w300,
-  color: normalPrimaryBaseColorLight,
-  letterSpacing: 1.5,
-);
+  static TextStyle createTextStyle(TextStyle style, Color color) {
+    return style.copyWith(color: color);
+  }
 
-const TextStyle heading2Light = TextStyle(
-    fontFamily: 'Inter',
-    fontSize: 58,
-    fontWeight: FontWeight.w300,
-    color: normalPrimaryBaseColorLight,
-    letterSpacing: 1.5);
 
-const TextStyle heading3Regular = TextStyle(
-    fontFamily: 'Inter',
-    fontSize: 46,
+  static const TextStyle navigationLarge = TextStyle(
+    fontSize: 24,
+    fontFamily: 'Galano',
+    fontWeight: FontWeight.w600,
+  );
+
+  static const TextStyle navigationMedium = TextStyle(
+    fontSize: 16,
+    fontFamily: 'Galano',
+    fontWeight: FontWeight.w600,
+  );
+
+  static const TextStyle titleLarge = TextStyle(
+    fontSize: 32,
+    fontFamily: 'Galano',
+    fontWeight: FontWeight.w600,
+  );
+
+  static const TextStyle titleMedium = TextStyle(
+    fontSize: 24,
+    fontFamily: 'Galano',
+    fontWeight: FontWeight.w600,
+  );
+
+  static const TextStyle titleSmall = TextStyle(
+    fontSize: 20,
+    fontFamily: 'Galano',
+    fontWeight: FontWeight.w600,
+  );
+
+  static const TextStyle titleXSmall = TextStyle(
+    fontSize: 16,
+    fontFamily: 'Galano',
+    fontWeight: FontWeight.w600,
+  );
+
+  static const TextStyle headingMedium = TextStyle(
+    fontSize: 14,
+    fontFamily: 'Galano',
+    fontWeight: FontWeight.w600,
+    letterSpacing: 0.50,
+  );
+
+  static const TextStyle headingSmall = TextStyle(
+    fontSize: 12,
+    fontFamily: 'Galano',
+    fontWeight: FontWeight.w600,
+    letterSpacing: 0.30,
+  );
+
+  static const TextStyle bodyExtraLarge = TextStyle(
+    fontSize: 24,
+    fontFamily: 'Galano',
     fontWeight: FontWeight.w400,
-    color: normalPrimaryBaseColorLight,
-    letterSpacing: 1.5);
+  );
 
-const TextStyle heading4Regular = TextStyle(
-    fontFamily: 'Inter',
-    fontSize: 33,
+  static const TextStyle bodyLarge = TextStyle(
+    fontSize: 18,
+    fontFamily: 'Galano',
     fontWeight: FontWeight.w400,
-    color: normalPrimaryBaseColorLight,
-    letterSpacing: 1.5);
+  );
 
-const TextStyle heading5Regular = TextStyle(
-    fontFamily: 'Inter',
-    fontSize: 23,
+  static const TextStyle bodyMedium = TextStyle(
+    fontSize: 16,
+    fontFamily: 'Galano',
     fontWeight: FontWeight.w400,
-    color: normalPrimaryBaseColorLight,
-    letterSpacing: 1.5);
+  );
 
-const TextStyle subtitle1Regular = TextStyle(
-    fontFamily: 'Inter',
-    fontSize: 15,
+  static const TextStyle bodySmall = TextStyle(
+    fontSize: 14,
+    fontFamily: 'Galano',
     fontWeight: FontWeight.w400,
-    color: normalPrimaryBaseColorLight,
-    letterSpacing: 0.15);
+  );
 
-const TextStyle subtitle2Medium = TextStyle(
-    fontFamily: 'Inter',
-    fontSize: 13,
-    fontWeight: FontWeight.w500,
-    color: normalPrimaryBaseColorLight,
-    letterSpacing: 0.1);
-
-const TextStyle paragraph1Regular = TextStyle(
-    fontFamily: 'Inter',
-    fontSize: 15,
+  static const TextStyle bodyXSmall = TextStyle(
+    fontSize: 12,
+    fontFamily: 'Galano',
     fontWeight: FontWeight.w400,
-    color: darkPrimaryBaseColorLight,
-    letterSpacing: 0.5);
+  );
 
-const TextStyle paragraph2Medium = TextStyle(
-    fontFamily: 'Inter',
-    fontSize: 13,
+  static const TextStyle bodyExtraLargeBold = TextStyle(
+    fontSize: 24,
+    fontFamily: 'Galano',
+    fontWeight: FontWeight.w600,
+  );
+
+  static const TextStyle bodyLargeBold = TextStyle(
+    fontSize: 18,
+    fontFamily: 'Galano',
+    fontWeight: FontWeight.w600,
+  );
+
+  static const TextStyle bodyMediumBold = TextStyle(
+    fontSize: 16,
+    fontFamily: 'Galano',
+    fontWeight: FontWeight.w600,
+  );
+
+  static const TextStyle bodySmallBold = TextStyle(
+    fontSize: 14,
+    fontFamily: 'Galano',
+    fontWeight: FontWeight.w600,
+  );
+
+  static const TextStyle bodyXSmallBold = TextStyle(
+    fontSize: 12,
+    fontFamily: 'Galano',
+    fontWeight: FontWeight.w600,
+  );
+
+  static const TextStyle linkMedium = TextStyle(
+    fontSize: 16,
+    fontFamily: 'Galano',
     fontWeight: FontWeight.w400,
-    color: normalPrimaryBaseColorLight,
-    letterSpacing: 0.25);
+    decoration: TextDecoration.underline,
+  );
 
-const TextStyle label1Semibold = TextStyle(
-  fontFamily: 'Inter',
-  fontSize: 15,
-  fontWeight: FontWeight.w600,
-  color: normalPrimaryBaseColorLight,
-);
+  static const TextStyle linkSmall = TextStyle(
+    fontSize: 14,
+    fontFamily: 'Galano',
+    fontWeight: FontWeight.w400,
+    decoration: TextDecoration.underline,
+  );
 
-const TextStyle label2Regular = TextStyle(
-  fontFamily: 'Inter',
-  fontSize: 10,
-  height: 16,
-  fontWeight: FontWeight.w400,
-  color: normalPrimaryBaseColorLight,
-);
+  static const TextStyle linkXSmall = TextStyle(
+    fontSize: 12,
+    fontFamily: 'Galano',
+    fontWeight: FontWeight.w400,
+    decoration: TextDecoration.underline,
+  );
 
-const TextStyle label2Semibold = TextStyle(
-  fontFamily: 'Inter',
-  fontSize: 10,
-  height: 16,
-  fontWeight: FontWeight.w500,
-  color: normalPrimaryBaseColorLight,
-);
+  static const TextStyle buttonLabelLarge = TextStyle(
+    fontSize: 18,
+    fontFamily: 'Galano',
+    fontWeight: FontWeight.w600,
+  );
 
-const TextStyle button1Bold = TextStyle(
-  fontFamily: 'Inter',
-  fontSize: 16,
-  fontWeight: FontWeight.w700,
-  color: normalPrimaryBaseColorLight,
-);
+  static const TextStyle buttonLabelMedium = TextStyle(
+    fontSize: 16,
+    fontFamily: 'Galano',
+    fontWeight: FontWeight.w600,
+  );
 
-const TextStyle button2Semibold = TextStyle(
-  fontFamily: 'Inter',
-  fontSize: 14,
-  fontWeight: FontWeight.w600,
-  color: normalPrimaryBaseColorLight,
-);
+  static const TextStyle buttonLabelSmall = TextStyle(
+    fontSize: 14,
+    fontFamily: 'Galano',
+    fontWeight: FontWeight.w600,
+  );
 
-const TextStyle button3Semibold = TextStyle(
-  fontFamily: 'Inter',
-  fontSize: 12,
-  fontWeight: FontWeight.w600,
-  color: normalPrimaryBaseColorLight,
-);
-
-const TextStyle navbarSmallTitle = TextStyle(
-  fontSize: 18,
-  height: 24,
-  fontWeight: FontWeight.w600,
-  color: normalPrimaryBaseColorLight,
-);
-
-const TextStyle navbarLargeTitle = TextStyle(
-  fontSize: 34,
-  height: 38,
-  fontWeight: FontWeight.w700,
-  color: normalPrimaryBaseColorLight,
-);
+  static const TextStyle buttonLabelXSmall = TextStyle(
+    fontSize: 12,
+    fontFamily: 'Galano',
+    fontWeight: FontWeight.w600,
+  );
+}

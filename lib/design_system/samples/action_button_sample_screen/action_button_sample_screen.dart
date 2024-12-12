@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../components/buttons/action_buttom/action_button.dart';
-import '../../components/buttons/action_buttom/action_button_view_model.dart';
+import '../../components/buttons/button/action_button.dart';
+import '../../components/buttons/button/action_button_view_model.dart';
 
 class ActionButtonPage extends StatelessWidget {
   const ActionButtonPage({super.key});
@@ -9,110 +9,77 @@ class ActionButtonPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: const Text('Styled Input Field Demo'),
+      appBar: AppBar(
+        title: const Text('Action Button Examples'),
+      ),
+      body: SingleChildScrollView(
+        // Adiciona SingleChildScrollView para rolagem
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            for (final size in ActionButtonSize.values)
+              _buildButtonSection(size: size),
+          ],
         ),
-        body: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Column(
-                    children: [
-                      ActionButton.instantiate(
-                          viewModel: ActionButtonViewModel(
-                              size: ActionButtonSize.large,
-                              style: ActionButtonStyle.primary,
-                              text: 'Large',
-                              onPressed: () {})),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      ActionButton.instantiate(
-                          viewModel: ActionButtonViewModel(
-                              size: ActionButtonSize.medium,
-                              style: ActionButtonStyle.primary,
-                              text: 'Medium',
-                              onPressed: () {})),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      ActionButton.instantiate(
-                          viewModel: ActionButtonViewModel(
-                              size: ActionButtonSize.small,
-                              style: ActionButtonStyle.primary,
-                              text: 'Small',
-                              onPressed: () {})),
-                    ],
-                  ),
-                  Column(
-                    children: [
-                      ActionButton.instantiate(
-                          viewModel: ActionButtonViewModel(
-                              size: ActionButtonSize.large,
-                              style: ActionButtonStyle.secondary,
-                              text: 'Large',
-                              icon: Icons.navigate_next_outlined,
-                              onPressed: () {})),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      ActionButton.instantiate(
-                          viewModel: ActionButtonViewModel(
-                              size: ActionButtonSize.medium,
-                              style: ActionButtonStyle.secondary,
-                              text: 'Medium',
-                              icon: Icons.navigate_next_outlined,
-                              onPressed: () {})),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      ActionButton.instantiate(
-                          viewModel: ActionButtonViewModel(
-                              size: ActionButtonSize.small,
-                              style: ActionButtonStyle.secondary,
-                              text: 'Small',
-                              icon: Icons.navigate_next_outlined,
-                              onPressed: () {})),
-                    ],
-                  ),
-                  Column(
-                    children: [
-                      ActionButton.instantiate(
-                          viewModel: ActionButtonViewModel(
-                              size: ActionButtonSize.large,
-                              style: ActionButtonStyle.tertiary,
-                              text: 'Large',
-                              onPressed: () {})),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      ActionButton.instantiate(
-                          viewModel: ActionButtonViewModel(
-                              size: ActionButtonSize.medium,
-                              style: ActionButtonStyle.tertiary,
-                              text: 'Medium',
-                              icon: Icons.navigate_next_outlined,
-                              onPressed: () {})),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      ActionButton.instantiate(
-                          viewModel: ActionButtonViewModel(
-                              size: ActionButtonSize.small,
-                              style: ActionButtonStyle.tertiary,
-                              icon: Icons.navigate_next_outlined,
-                              text: 'Small',
-                              onPressed: () {})),
-                    ],
-                  ),
-                ],
+      ),
+    );
+  }
+
+  Widget _buildButtonSection({required ActionButtonSize size}) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          size.name.toUpperCase(),
+          style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+        ),
+        const SizedBox(height: 10),
+        Wrap(
+          // Wrap para organizar os botões em múltiplas linhas
+          spacing: 10,
+          runSpacing: 10,
+          children: [
+            for (final style in ActionButtonStyle.values)
+              ActionButton.instantiate(
+                viewModel: ActionButtonViewModel(
+                  size: size,
+                  style: style,
+                  text: style.name.toUpperCase(),
+                  icon: style != ActionButtonStyle.text ? Icons.add : null,
+                  enabled: true,
+                  onPressed: () {
+                    // Implemente a ação aqui, se necessário.
+                    print('Botão ${style.name} pressionado.');
+                  },
+                ),
               ),
-            ],
-          ),
-        ));
+          ],
+        ),
+        const SizedBox(height: 20), // Espaço entre seções
+        Wrap(
+          // Wrap para organizar os botões em múltiplas linhas
+          spacing: 10,
+          runSpacing: 10,
+          children: [
+            for (final style in ActionButtonStyle.values)
+              ActionButton.instantiate(
+                viewModel: ActionButtonViewModel(
+                  size: size,
+                  style: style,
+                  text: style.name.toUpperCase(),
+                  icon: style != ActionButtonStyle.text ? Icons.add : null,
+                  enabled: false,
+                  onPressed: () {
+                    // Implemente a ação aqui, se necessário.
+                    print('Botão ${style.name} pressionado (Disabled).');
+                  },
+                ),
+              ),
+          ],
+        ),
+        const SizedBox(height: 20), // Espaço entre seções
+      ],
+    );
   }
 }
