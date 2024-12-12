@@ -26,24 +26,26 @@ class _LoginViewState extends State<LoginView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.all(32.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            _buildLogo(),
-            const SizedBox(height: 64),
-            _buildEmailField(),
-            const SizedBox(height: 16),
-            _buildPasswordField(),
-            const SizedBox(height: 24),
-            _buildForgotPasswordLabel(),
-            const SizedBox(height: 24),
-            _buildLoginButton(context),
-            const SizedBox(height: 96),
-            _buildSignUpSection(context),
-          ],
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(32.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              _buildLogo(),
+              const SizedBox(height: 64),
+              _buildEmailField(),
+              const SizedBox(height: 16),
+              _buildPasswordField(),
+              const SizedBox(height: 24),
+              _buildForgotPasswordLabel(),
+              const SizedBox(height: 24),
+              _buildLoginButton(context),
+              const SizedBox(height: 96),
+              _buildSignUpSection(context),
+            ],
+          ),
         ),
       ),
     );
@@ -108,28 +110,19 @@ class _LoginViewState extends State<LoginView> {
         size: ActionButtonSize.large,
         text: 'Login',
         onPressed: () async {
-          try {
-            // Realiza o login e obtém os dados do usuário
-            final response = await loginService.login(
-              emailController.text,
-              passwordController.text,
-            );
+            try {
+              final response = await loginService.login(
+                  emailController.text, passwordController.text);
+              final authToken = response['token'];
+              SessionManager.setAuthToken(authToken); // Armazena o token
 
-            // Obtém o token de autenticação
-            final authToken = response['token'];
-
-            // Armazena o token usando o SessionManager
-            SessionManager.setAuthToken(authToken);
-
-            // Navega para a tela de tarefas usando o LoginRouter
-            LoginRouter.goToTasks(context);
-          } catch (e) {
-            // Exibe mensagem de erro
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text('Erro: ${e.toString()}')),
-            );
+              // Chama diretamente a navegação com o token
+              LoginRouter.goToTasks(context, authToken);
+            } catch (e) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(content: Text('Erro: ${e.toString()}')));
+            }
           }
-        },
       ),
     );
   }

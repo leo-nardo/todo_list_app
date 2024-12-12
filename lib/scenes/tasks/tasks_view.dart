@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../core/session_manager.dart';
 import 'tasks_service.dart';
 
 class TasksView extends StatefulWidget {
@@ -12,11 +13,13 @@ class TasksView extends StatefulWidget {
 
 class _TasksViewState extends State<TasksView> {
   late Future<List<Map<String, dynamic>>> _tasks;
+  final String userId = SessionManager.userId ?? 'default_user_id';
+
 
   @override
   void initState() {
     super.initState();
-    _tasks = widget.tasksService.fetchTasks();
+    _tasks = widget.tasksService.fetchTasks(userId); // Passando o id do usuário
   }
 
   void _showCreateTaskDialog(BuildContext context) {
@@ -70,7 +73,7 @@ class _TasksViewState extends State<TasksView> {
                 try {
                   await widget.tasksService.addTask(task);
                   setState(() {
-                    _tasks = widget.tasksService.fetchTasks();
+                    _tasks = widget.tasksService.fetchTasks(userId);
                   });
                   Navigator.of(context).pop();
                 } catch (e) {
